@@ -25,7 +25,7 @@ const pAequorFactory = (specimentNum,dna) => {
     //with the new random base 
     this.dna.splice(randomBaseIndex,0,randomBase);
     return dna;
-  },// end mutate
+  },
   //compare dna sequences of different P. aequor
   compareDNA(pAequor) {
     let sameBaseCount = 0;
@@ -53,6 +53,30 @@ const pAequorFactory = (specimentNum,dna) => {
       } else {
         return false;
       }
+  },
+  //complementary DNA Strand function
+  complementStrand() {
+    let complementaryDNA = [];
+
+    for (i=0; i<this.dna.length;i++) {
+      switch (this.dna[i]) {
+        case 'A':
+        complementaryDNA.push('T');
+        break;
+        case 'T':
+        complementaryDNA.push('A');
+        break;
+        case 'C':
+        complementaryDNA.push('G');
+        break;
+        case 'G':
+        complementaryDNA.push('C');
+        break;
+      }
+    }
+    //console.log(complementaryDNA);
+    return complementaryDNA;
+
   }
   };
 }
@@ -67,14 +91,25 @@ while (count<=30) {
       count++;
   }
 }
+//build complementary speciments of pAeaquor from AequorSpecimens
+
+let comAequorSpecimens = [];
+for(j=0; j<30; j++){
+
+  let comDNA = pAequorSpecimens[j].complementStrand();
+  comAequorSpecimens.push(pAequorFactory(j,comDNA));
+  }
+
 //log 30 speciments from pAequorSpecimens array of speciments to console
 logToConsole = (specimentArray) =>{ 
 specimentArray.forEach(specimen => {
   console.log(`Specimen ${specimen['specimentNum']}: DNA: ${specimen['dna']}`)
 })};
-
+// tests
 logToConsole(pAequorSpecimens);
+//logToConsole(comAequorSpecimens);
  
+
 
 
 
